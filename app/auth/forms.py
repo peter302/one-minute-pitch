@@ -22,4 +22,11 @@ class RegistrationForm(FlaskForm):
         ''' a function that is checking that the new user doesnt use an already registred username'''
         if User.query.filter_by(username=data_field.data).first():
             raise ValidationError('that username alreadyexists')
-            
+
+
+#login class to log in users
+class LoginForm(FlaskForm):
+    email=StringField('email address',validators=[Required(),Email()])
+    password=PasswordField('password',validators=[Required()])
+    remember=BooleanField('remember me')
+    submit=SubmitField('sign in')            
