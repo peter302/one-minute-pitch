@@ -108,4 +108,18 @@ def post_comment(id):
     return render_template('post_comment.html', comment_form=form, title=title)
 
 
-    
+#Routes upvoting/downvoting pitches
+@main.route('/pitch/upvote/<int:id>')
+@login_required
+def upvote(id):
+    '''
+    View function that add one to the vote_number column in the votes table
+    '''
+    pitch_id = Pitch.query.filter_by(id=id).first()
+
+    if pitch_id is None:
+         abort(404)
+
+    new_vote = Votes(vote=int(1), user_id=current_user.id, pitches_id=pitch_id.id)
+    new_vote.save_vote()
+    return redirect(url_for('.view_pitch', id=id))    
