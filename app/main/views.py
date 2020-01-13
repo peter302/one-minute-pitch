@@ -122,4 +122,22 @@ def upvote(id):
 
     new_vote = Votes(vote=int(1), user_id=current_user.id, pitches_id=pitch_id.id)
     new_vote.save_vote()
-    return redirect(url_for('.view_pitch', id=id))    
+    return redirect(url_for('.view_pitch', id=id))
+
+
+
+@main.route('/pitch/downvote/<int:id>')
+@login_required
+def downvote(id):
+
+    '''
+    View function that add one to the vote_number column in the votes table
+    '''
+    pitch_id = Pitch.query.filter_by(id=id).first()
+
+    if pitch_id is None:
+         abort(404)
+
+    new_vote = Votes(vote=int(2), user_id=current_user.id, pitches_id=pitch_id.id)
+    new_vote.save_vote()
+    return redirect(url_for('.view_pitch', id=id))        
