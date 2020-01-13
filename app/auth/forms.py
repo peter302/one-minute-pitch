@@ -20,4 +20,6 @@ class RegistrationForm(FlaskForm):
 
     def validate_username(self,data_field):
         ''' a function that is checking that the new user doesnt use an already registred username'''
-        
+        if User.query.filter_by(username=data_field.data).first():
+            raise ValidationError('that username alreadyexists')
+            
