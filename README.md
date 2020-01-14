@@ -31,7 +31,7 @@ This is a web application that allows various users to submit a short pitch. Use
 
 ## Setup/Installation Requirements
 * internet access
-* $ git clone https://git.heroku.com/kuria-one-pitch.git
+* $ git clone https://kuria-one-pitch.herokuapp.com/
 * $ cd one-minute-pitch
 * $ python3.6 -m venv virtual (install virtual environment)
 * $ source virtual/bin/activate
