@@ -23,7 +23,7 @@ class Config:
 
 class ProdConfig(Config):
     """Production configuration class that inherits from the main configurations class"""
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://rkepha:KR@localhost/pitch'# os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")# os.environ.get("DATABASE_URL")
     #SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
