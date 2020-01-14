@@ -127,4 +127,23 @@ class Comments(db.Model):
         comment = Comments.query.order_by(
             Comments.time_posted.desc()).filter_by(pitches_id=id).all()
         return comment
-        
+
+
+#votes
+class Votes(db.Model):
+    '''class to model votes '''
+    __tablename__='votes'
+
+    id = db.Column(db. Integer, primary_key=True)
+    vote = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+
+    def save_vote(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_votes(cls,user_id,pitches_id):
+        votes = Vote.query.filter_by(user_id=user_id, pitches_id=pitches_id).all()
+        return votes        
