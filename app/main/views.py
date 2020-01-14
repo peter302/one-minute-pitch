@@ -1,10 +1,10 @@
+
 from flask import render_template, request, redirect, url_for, abort
 from . import main
 from ..models import User,Pitch,Comments,PitchCategory,Votes
 from .. import db
 from . forms import PitchForm, CommentForm, CategoryForm
 from flask_login import login_required,current_user
-
 
 #display categories on the landing page
 @main.route('/')
@@ -37,7 +37,6 @@ def new_pitch(id):
 
     return render_template('new_pitch.html', pitch_form=form, category=category)
 
-
 @main.route('/categories/<int:id>')
 def category(id):
     category = PitchCategory.query.get(id)
@@ -46,8 +45,6 @@ def category(id):
 
     pitches=Pitch.get_pitches(id)
     return render_template('category.html', pitches=pitches, category=category)
-
-
 
 @main.route('/add/category', methods=['GET','POST'])
 @login_required
@@ -66,7 +63,6 @@ def new_category():
 
     title = 'New category'
     return render_template('new_category.html', category_form = form,title=title)
-
 
 
 #view single pitch alongside its comments
@@ -107,7 +103,6 @@ def post_comment(id):
 
     return render_template('post_comment.html', comment_form=form, title=title)
 
-
 #Routes upvoting/downvoting pitches
 @main.route('/pitch/upvote/<int:id>')
 @login_required
@@ -141,7 +136,6 @@ def downvote(id):
     new_vote = Votes(vote=int(2), user_id=current_user.id, pitches_id=pitch_id.id)
     new_vote.save_vote()
     return redirect(url_for('.view_pitch', id=id))
-
 
 @main.route('/pitch/downvote/<int:id>')
 def vote_count(id):

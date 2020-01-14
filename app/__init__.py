@@ -1,14 +1,14 @@
-from flask import flask
+from flask import Flask
 from flask_bootstrap import Bootstrap
 from config import config_options
-from flask_sqlalchemy import flask_sqlalchemy
-from flas_login import loginManager
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 
 
 bootstrap=Bootstrap()
 db=SQLAlchemy()
-login_manager=loginManager()
+login_manager=LoginManager()
 
 
 def create_app(config_name):
@@ -23,11 +23,12 @@ def create_app(config_name):
     login_manager.session_protection='strong'
     login_manager.login_view='auth.login'
 
-    #registering the blueprint
+    # Registering the blueprint
+
     from .main import main as main_blueprint
-    app.register_blueprint(auth_blueprint,url_prefix='/authenticate')
+    app.register_blueprint(main_blueprint)
+
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
 
     return app
-
-
-    
